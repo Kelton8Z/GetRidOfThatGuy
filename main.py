@@ -1,8 +1,12 @@
 from flask import Flask, render_template, Response
+from flask_bootstrap import Bootstrap
+import requests
 import cv2
 import time
 import numpy as np
 index = 0
+
+
 
 class VideoCamera(object):
 
@@ -60,6 +64,9 @@ class VideoCamera(object):
 
 
 app = Flask(__name__)
+
+bootstrap = Bootstrap(app)
+
 @app.route('/')  # 主页
 def index():
     # jinja2模板，具体格式保存在index.html文件中
@@ -73,12 +80,13 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+@app.route("/RTMPstreaming") #返回rtmp视频流
+def returnRTMP():
+    return render_template('RTMPstreaming.html')
 
-@app.route('/video_feed')  # 这个地址返回视频流响应
-def video_feed():
-    return Response(gen(VideoCamera()),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-
+@app.route("/PostProcessing") #进入后期处理界面
+def returnRTMP():
+    return render_template('PostProcessing.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port = 5000)
