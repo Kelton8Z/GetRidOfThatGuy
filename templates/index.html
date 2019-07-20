@@ -40,7 +40,7 @@
 </style>
 <script>
     function postProcessing(){
-        var fd = new FormData();    
+        /*var fd = new FormData();    
         fd.append( 'file', input.files[0] );
 
         $.ajax({
@@ -52,7 +52,28 @@
           success: function(data){
             alert(data);
           }
-        }); 
+        }); */
+       // $(function() {
+       //     $('#upload-file-btn').click(function() {
+       //         var form_data = new FormData($('#upload-file')[0]);
+       //         $.ajax({
+       //             type: 'POST',
+       //             url: '/uploadajax',
+       //             data: form_data,
+       //             contentType: false,
+       //             cache: false,
+       //             processData: false,
+       //             success: function(data) {
+       //                 console.log('Success!');
+       //             },
+       //         });
+       //     });
+       //  });
+       /* 
+        $.post("182.61.24.71:8088/accept_task", {
+            json_string: JSON.stringify({video:"https://share.icloud.com/photos/0pO1d-z47PTttG5kfLW45JMHQ" , tg_img : "IMG_7167.PNG", bg_img : "IMG_5169.JPG"});
+        }*/
+        console.log("button pressed");
     }
     function RealTimeEditing(){
        <input type="file" accept="video/*" capture>

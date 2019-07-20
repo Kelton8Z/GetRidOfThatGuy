@@ -80,12 +80,17 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+#@app.route('/uploadajax', methods = ['POST'])
+#def upldfile():
+#    if request.method == 'POST':
+#        file_val = request.files['file']
+
 @app.route("/RTMPstreaming") #返回rtmp视频流
 def returnRTMP():
     return render_template('RTMPstreaming.html')
 
 @app.route("/PostProcessing") #进入后期处理界面
-def returnRTMP():
+def postProcessingP():
     return render_template('PostProcessing.html')
 
 if __name__ == '__main__':
