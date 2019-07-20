@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <h1>Video Streaming Demonstration</h1>
+ <!<img src="{{ url_for('video_feed') }}">>
+ <input type="file" accept="video/*" capture>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{width: 500px;height: 500px;border: 1px solid black;margin: 20px auto;position: relative;}
+        #box div{border: 1px solid green;position: absolute;}
+    </style>
+    <script>
+        window.onload = function () {
+            var oBox = document.getElementById("box");
+            //鼠标按下，获取初始点
+            oBox.onmousedown = function (ev) {
+               ev = window.event || ev;
+                //1.获取按下的点
+               var x1 = ev.clientX - oBox.offsetLeft;
+               var y1 = ev.clientY - oBox.offsetTop;
+
+
+                //2.创建div
+               var oDiv = document.createElement("div");
+               oBox.appendChild(oDiv);
+               oBox.onmousemove = function (ev) {
+                   ev = window.event || ev;
+                   var x2 = ev.clientX - oBox.offsetLeft;
+                   var y2 = ev.clientY - oBox.offsetTop;
+                   //3.设置div的样式
+                   oDiv.style.left = (x2 > x1 ? x1 : x2) +"px";
+                   oDiv.style.top = (y2 > y1 ? y1 : y2) +"px";
+                   oDiv.style.width = Math.abs(x2-x1)+"px";
+                   oDiv.style.height =Math.abs(y2-y1)+"px";
+               }
+               return false;  //解除在划动过程中鼠标样式改变的BUG
+           }
+           //在鼠标抬起后终止onmousemove事件
+           document.onmouseup = function () {
+               oBox.onmousemove = null;
+           }
+        }
+
+        $(document).ready(function () {
+        var data = {
+         data: JSON.stringify({"lesson": "Operation System", "score": 100})
+        }
+        $.ajax({
+        url:"/sendjson",
+        type: 'POST',
+        data: data,
+        success: function (msg) {
+            alert(msg.name)
+        }
+    })
+  });
+    </script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>
